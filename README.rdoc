@@ -1,0 +1,20 @@
+= CarrierWave for Sequel
+
+This gem adds support for Sequel to CarrierWave, see the CarrierWave
+documentation for more detailed usage instructions.
+
+Install it like this:
+
+    gem install carrierwave-sequel
+
+Use it like this:
+
+    require 'carrierwave/sequel'
+
+Make sure to disable auto_validation on the mounted column.
+
+Using bundler:
+
+    gem 'carrierwave-sequel', :require => 'carrierwave/sequel'
+
+This used to be part of CarrierWave but has been extracted.
