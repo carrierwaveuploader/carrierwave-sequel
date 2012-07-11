@@ -178,4 +178,11 @@ describe CarrierWave::Sequel do
     end
 
   end
+
+  describe 'inflection' do
+    it "should inflect table names properly" do
+      class User < Sequel::Model; end
+      User.table_name.should == :users
+    end
+  end
 end
