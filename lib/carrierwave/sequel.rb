@@ -7,7 +7,7 @@ module CarrierWave
   module Sequel
     include CarrierWave::Mount
 
-    def mount_uploader(column, uploader)
+    def mount_uploader(column, uploader, options={}, &block)
       raise "You need to use Sequel 3.0 or higher. Please upgrade." unless ::Sequel::Model.respond_to?(:plugin)
       super
 
