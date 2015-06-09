@@ -15,7 +15,6 @@ module CarrierWave
       alias_method :write_uploader, :[]=
 
       include CarrierWave::Sequel::Hooks
-      include CarrierWave::Sequel::Validations
     end
 
   end # Sequel
@@ -37,10 +36,6 @@ module CarrierWave::Sequel::Hooks
     return false if super == false
     self.class.uploaders.each_key {|column| self.send("remove_#{column}!") }
   end
-end
-
-# Instance validation methods for the Sequel 3.x
-module CarrierWave::Sequel::Validations
 end
 
 Sequel::Model.send(:extend, CarrierWave::Sequel)
