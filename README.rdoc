@@ -11,10 +11,15 @@ Use it like this:
 
     require 'carrierwave/sequel'
 
-Make sure to disable auto_validation on the mounted column.
-
 Using bundler:
 
     gem 'carrierwave-sequel', :require => 'carrierwave/sequel'
 
 This used to be part of CarrierWave but has been extracted.
+
+== Notes
+
+Make sure to disable *auto_validation* plugin on the mounted column.
+
+You should always call *save* method on model after you set uploader's value
+(even if you've done it by call of *update*, setter, element assignment, etc.).
