@@ -33,7 +33,7 @@ describe CarrierWave::Sequel do
       @class, @uploader, @event = setup_variables_for_class(@class)
     end
 
-    after(:each) { @class.delete }
+    after(:each) { @class.dataset.delete }
 
     describe '#image' do
 
@@ -142,7 +142,7 @@ describe CarrierWave::Sequel do
         @event.save
         @event.reload
         @event.image.should be_blank
-        @event[:image].should == ''
+        @event[:image].should == nil
       end
     end
 
@@ -156,7 +156,7 @@ describe CarrierWave::Sequel do
               model.name + File.extname(super)
             end
           end
-          @event.stub!(:name).and_return('jonas')
+          @event.stub(:name).and_return('jonas')
         end
 
         it "should copy the file to the upload directory when a file has been assigned" do
