@@ -2,6 +2,7 @@
 
 require 'sequel'
 require 'carrierwave'
+require 'active_support/inflector'
 
 module CarrierWave
   module Sequel
