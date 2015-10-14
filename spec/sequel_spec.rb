@@ -193,5 +193,26 @@ describe CarrierWave::Sequel do
 
     end
 
+    describe '#remove_image!' do
+
+      it "should remove the uploaded file from the filesystem" do
+        @event.image = stub_file('test.jpeg')
+        @event.save
+        @event.remove_image!
+        public_exist?('uploads/test.jpeg').should be_false
+      end
+
+    end
+
+    describe '#store_image!' do
+
+      it "should store a file that has been assigned with image=" do
+        @event.image = stub_file('test.jpeg')
+        @event.store_image!
+        public_exist?('uploads/test.jpeg').should be_true
+      end
+
+    end
+
   end
 end

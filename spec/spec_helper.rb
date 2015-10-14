@@ -13,6 +13,10 @@ def public_path( *paths )
   File.expand_path(File.join(File.dirname(__FILE__), 'public', *paths))
 end
 
+def public_exist?( *paths )
+  File.exist?(public_path(*paths))
+end
+
 CarrierWave.root = public_path
 
 module CarrierWave
