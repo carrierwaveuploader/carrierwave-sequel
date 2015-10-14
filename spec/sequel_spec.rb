@@ -106,6 +106,14 @@ describe CarrierWave::Sequel do
         @event.image.current_path.should == public_path('uploads/test.jpeg')
       end
 
+      it "should copy the file to the upload directory when a file has been assigned via Sequel::Model#update" do
+        @event.save.should be_true
+        @event.update(:image => stub_file('test.jpeg'))
+        @event.reload
+        @event.image.should be_an_instance_of(@uploader)
+        @event.image.current_path.should == public_path('uploads/test.jpeg')
+      end
+
       describe 'with validation' do
 
         before do
