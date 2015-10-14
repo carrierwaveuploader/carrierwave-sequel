@@ -106,14 +106,6 @@ describe CarrierWave::Sequel do
         @event.image.current_path.should == public_path('uploads/test.jpeg')
       end
 
-      it "should copy the file to the upload directory when a file has been assigned via Sequel::Model#update" do
-        @event.save.should be_true
-        @event.update(:image => stub_file('test.jpeg'))
-        @event.reload
-        @event.image.should be_an_instance_of(@uploader)
-        @event.image.current_path.should == public_path('uploads/test.jpeg')
-      end
-
       describe 'with validation' do
 
         before do
@@ -141,16 +133,6 @@ describe CarrierWave::Sequel do
         @event.save.should be_true
         @event.reload
         @event[:image].should == 'test.jpeg'
-      end
-
-      it "should remove the image if remove_image? returns true" do
-        @event.image = stub_file('test.jpeg')
-        @event.save
-        @event.remove_image = true
-        @event.save
-        @event.reload
-        @event.image.should be_blank
-        @event[:image].should == nil
       end
     end
 
@@ -181,6 +163,32 @@ describe CarrierWave::Sequel do
           @event[:image].should == 'jonas.jpeg'
         end
 
+      end
+
+    end
+
+    describe '#update' do
+
+      it "should copy the file to the upload directory when a file has been assigned" do
+        @event.save.should be_true
+        @event.update(:image => stub_file('test.jpeg'))
+        @event.reload
+        @event.image.should be_an_instance_of(@uploader)
+        @event.image.current_path.should == public_path('uploads/test.jpeg')
+      end
+
+    end
+
+    describe '#remove_image=' do
+
+      it "should remove the image if remove_image=true" do
+        @event.image = stub_file('test.jpeg')
+        @event.save
+        @event.remove_image = true
+        @event.save
+        @event.reload
+        @event.image.should be_blank
+        @event[:image].should == nil
       end
 
     end
